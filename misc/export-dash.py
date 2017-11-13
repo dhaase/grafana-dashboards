@@ -28,6 +28,7 @@ def main():
         name = data['title'].replace(' ', '_').replace('/', '_').replace(':', '').replace('[', '').replace(']', '')
         tmp = open(DIR + name + '.json', 'w')
         tmp.write(dash)
+        tmp.write('\n')
         tmp.close()
 
 
@@ -42,8 +43,8 @@ def dash_cleanup(a):
         a['templating']['list'][i]['datasource'] = 'Prometheus'
         if 'Amazon RDS' in a['title']:
             a['templating']['list'][i]['datasource'] = 'CloudWatch'
- 
-        if e['name'] in TEMPLATE_VARS: 
+
+        if e['name'] in TEMPLATE_VARS:
             if 'options' in a['templating']['list'][i]:
                 del a['templating']['list'][i]['options']
 
@@ -65,7 +66,7 @@ def dash_cleanup(a):
 
         j += 1
 
-    return json.dumps(a, sort_keys=True, indent=4)
+    return json.dumps(a, sort_keys=True, indent=4, separators=(',', ': '))
 
 
 if __name__ == '__main__':
